@@ -12,17 +12,18 @@ class GoldenCross(bt.Strategy):
             self.data.close, period=self.p.fast, plotname="50 day"
         )
 
-        self.slowma = bt.indicators.SimpleMovingAverage(
+        self.slowma = bt.indicators.SimpleMovingAverage( 
             self.data.close, period=self.p.slow, plotname="200 day"
         )
 
         self.crossover = bt.indicators.CrossOver(self.fastma, self.slowma)
+    
 
     def next(self):
-        print("Start of the Golden_Cross")
         if self.position.size == 0:
             if self.crossover > 0:
                 amount_to_invest = self.p.order_pct * self.broker.cash
+                print(amount_to_invest)
                 self.size = math.floor(amount_to_invest / self.data.close)
 
                 print(
