@@ -7,7 +7,7 @@ from strategies.BuyHold import BuyHold
 
 cerebro = bt.Cerebro()
 
-prices = pd.read_csv('data/spy_2000-2020.csv', index_col='Date', parse_dates=True)
+prices = pd.read_csv('data/BAC.csv', index_col='Date', parse_dates=True)
 
 # initialize the Cerebro engine
 cerebro = Cerebro()
