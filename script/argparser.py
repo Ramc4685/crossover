@@ -22,9 +22,6 @@ def parse_args():
     parser.add_argument('--period', default=15, type=int,
                         help='Period to apply to the Simple Moving Average')
 
-    parser.add_argument('--cash', default=100000, type=int,
-                        help='Starting Cash')
-
     parser.add_argument('--runnext', action='store_true',
                         help='Use next by next instead of runonce')
 
@@ -39,15 +36,39 @@ def parse_args():
 
     parser.add_argument('--stake', default=10, type=int,
                         help='Stake to apply in each operation')
+    
+    parser.add_argument('--strategy', '-s', default='buy_hold',
+                        help='Which strategy to run')
+
+    parser.add_argument('--writercsv', '-wcsv', action='store_true',
+                        help='Tell the writer to produce a csv stream')
+
+    group = parser.add_mutually_exclusive_group()
+
+    group.add_argument('--tframe', default='years', required=False,
+                       choices=['days', 'weeks', 'months', 'years'],
+                       help='TimeFrame for the returns/Sharpe calculations')
+
+    group.add_argument('--legacyannual', action='store_true',
+                       help='Use legacy annual return analyzer')
+
+    parser.add_argument('--cash', default=100000, type=int,
+                        help='Starting Cash')
+
+    parser.add_argument('--comm', default=2, type=float,
+                        help='Commission for operation')
+
+    parser.add_argument('--mult', default=10, type=int,
+                        help='Multiplier for futures')
+
+    parser.add_argument('--margin', default=2000.0, type=float,
+                        help='Margin for each future')
 
     parser.add_argument('--plot', '-p', action='store_true',
                         help='Plot the read data')
 
     parser.add_argument('--numfigs', '-n', default=1,
                         help='Plot using numfigs figures')
-    
-    parser.add_argument('--strategy', '-s', default='buy_hold',
-                        help='Which strategy to run')
                         
 
     return parser.parse_args()
